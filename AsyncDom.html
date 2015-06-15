@@ -2,6 +2,22 @@
   <head>
     <script type="dom-worker/javascript" src="js/workerScript.js"></script>
     <script type="text/javascript" src="js/workerParent.js"></script>
+    <script type="text/javascript">
+function testDocPerfParent() {
+  var start = Date.now();
+  var list = document.getElementById("parentList")
+  for (var i = 0; i < 1000; i++) {
+    var node = document.createElement("li")
+    node.textContent = "Parent Node " + i;
+    list.appendChild(node);
+  }
+  console.log("Parent Done " + (Date.now() - start));
+}
+
+addEventListener("load", function() {
+  testDocPerfParent();
+});
+</script>
   </head>
   <style>
   div[cat="dog"] {
@@ -15,5 +31,8 @@
     <button id="Button">Button</button>
     <a name="Foo" href="http://www.mozilla.org">Foo</a>
     <a name="Boo" href="http://www.yahoo.com">Boo</a>
+
+    <ul id="workerList" style="float: left; padding-right: 50px;"></ul>
+    <ul id="parentList"></ul
   </body>
 </html>
